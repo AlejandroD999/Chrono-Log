@@ -5,57 +5,30 @@
     <aside id="content_sidebar">
         <nav class="summaries_navbar">        
             <ul>
-                <li>Aside</li>
-                <li>Aside</li>
-                <li>Aside</li>
-                <li>Aside</li>
-                <li>A side</li>
-                <li>Ae</li>
-                <li>As  ide</li>
-                <li>A side</li>
-                <li>Ade</li>
-                <li>As ide</li>
-                <li>Asde</li>
-                <li>Aside</li>
-                <li>Aside</li>
-                <li>Aside</li>
-                <li>Aside</li>
-                <li>Aside</li>
-                <li>Aside</li>
-                <li>Aside</li>
-                <li>A side</li>
-                <li>Ae</li>
-                <li>As  ide</li>
-                <li>A side</li>
-                <li>Ade</li>
-                <li>As ide</li>
-                <li>Asde</li>
-                <li>Aside</li>
-                <li>Aside</li>
-                <li>Aside</li>
-                <li>As  ide</li>
-                <li>A side</li>
-                <li>Ade</li>
-                <li>As ide</li>
-                <li>Asde</li>
-                <li>Aside</li>
-                <li>Aside</li>
-                <li>Aside</li>
-                <li>As  ide</li>
-                <li>A side</li>
-                <li>Ade</li>
-                <li>As ide</li>
-                <li>Asde</li>
-                <li>Aside</li>
-                <li>Aside</li>
-                <li>Aside</li>    
+                {% for summary in summaries %}
+                    <li><a data-summary="{{ summary['summary'] }}" onclick="open_summary(this.dataset.summary)">{{ summary['summary'] }}</a> </li>
+
+                {% endfor %}
+
+                <script>
+                    function open_summary(content) {
+                        const section = document.querySelector("#content_section");
+                        section.textContent = content;
+                        section.style.display = 'block';
+                    }
+                </script>
+
             </ul>
         </nav>
     </aside>
 
     <section id="content_section">
-        Seciton
+        <p></p>
     </section>
+
+
 </div>
+
+
 
 {% endblock %}

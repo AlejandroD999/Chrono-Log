@@ -30,6 +30,7 @@ body
     background-color: rgb(221, 171, 130);
     width: 69.8%;
     height: 90vh;
+    display: None;
 }
 
 .summaries_navbar ul
@@ -43,6 +44,10 @@ body
 {
     width: 100%;
     background-color: rgb(148, 148, 148);
+}
+.summaries_navbar a
+{
+    cursor: pointer;
 }
 
 h1

@@ -31,3 +31,32 @@ def create_users_table(conn):
         cur.execute(table_query)
         
         conn.commit()
+
+# TODO Create summaries table to display all summaries of user
+@contextmanager
+def create_summaries_table():
+    summaries_query = """CREATE TABLE IF NOT EXISTS summaries (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER NOT NULL,
+                summary TEXT,
+                FOREIGN KEY (user_id) REFERENCES user(id)
+                )
+                """
+    
+    with get_db() as conn:
+        with get_cursor(conn) as cur:
+            cur.execute(summaries_query)
+
+        conn.commit()
+
+def retrieve_all_summaries(user):
+    """ returns a dict of all summaries """
+    
+    with get_db() as conn:
+        with get_cursor(conn) as cur:
+            cur.execute("""SELECT usr.id, usr.username, smr.id, smr.summary
+                        FROM users as usr JOIN summaries as smr 
+                        ON usr.id = smr.user_id WHERE usr.username = ?""", (user,))
+            summaries = cur.fetchall()
+
+    return summaries
