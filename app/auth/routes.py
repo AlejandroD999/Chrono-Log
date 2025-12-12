@@ -1,6 +1,7 @@
 from flask import Blueprint, flash, render_template, redirect, request, session, url_for
 import sqlite3
-from .utils import check_valid_password, get_db, create_users_table, get_cursor
+from .utils import check_valid_password
+from app.database.utils import get_db, create_users_table, get_cursor
 from app.extensions import bcrypt
 
 auth = Blueprint('auth', __name__, template_folder='templates', static_folder='static')

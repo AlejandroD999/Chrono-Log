@@ -10,6 +10,13 @@ def home():
     else:
         return redirect(url_for('auth.login'))
 
+@home_bp.route("/summaries")
+def summaries():
+    if is_logged_in():
+        return render_template("summaries.html")
+    else:
+        return redirect(url_for("auth.login"))
+
 @home_bp.route("/about")
 def about():
     if is_logged_in():
