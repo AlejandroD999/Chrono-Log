@@ -1,7 +1,10 @@
 from datetime import timedelta
 from flask import Flask
+from .extensions import bcrypt
 import secrets
 import os
+
+database = os.path.join(os.path.dirname(__file__), "database.db")
 
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
@@ -21,6 +24,12 @@ def create_app(test_config=None):
     except OSError:
         pass
 
+    bcrypt.init_app(app)
+
+    from .auth.routes import auth
+    from .home.routes import home_bp
     
+    app.register_blueprint(auth)
+    app.register_blueprint(home_bp)
 
     return app
