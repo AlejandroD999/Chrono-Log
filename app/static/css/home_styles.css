@@ -16,6 +16,24 @@ body
     background-size: cover;
 }
 
+.home_div
+{
+    align-self: center;
+    margin-top: 90px;
+    width: fit-content;
+    text-align: center;
+}
+.home_div h1
+{
+    margin: 10px;
+}
+.home_div h2, h3
+{
+    margin: 0;
+    margin-bottom: 5px;
+}
+
+
 .container_layout
 {
     display: flex;
@@ -28,7 +46,9 @@ body
     width: 30%;
     height: fit-content;
     margin: 0;
+    margin-top: 7px;
     overflow-y: auto;
+    opacity: 0.9;
     background-color: var(--bg-secondary);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
     
@@ -87,6 +107,7 @@ body
 {
     width: 100%;
     background-color: var(--accent);
+    color: var(--bg-secondary);
 }
 .summaries_navbar a
 {
@@ -97,7 +118,8 @@ body
 #content_section
 {
     flex: 3;
-    background-color: var(--bg-primary);
+    background-color: var(--bg-secondary);
+    margin: 7px;
     width: 68%;
     height: 90vh;
     display: None;
