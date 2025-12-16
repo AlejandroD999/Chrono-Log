@@ -5,7 +5,7 @@ from . import database
 def get_db():
     conn = sqlite3.connect(database)
     conn.row_factory = sqlite3.Row
-
+    conn.execute("PRAGMA foreign_keys = ON")
     try:
         yield conn
     finally:
@@ -19,7 +19,6 @@ def get_cursor(conn):
     finally:
         cur.close()
 
-@contextmanager
 def create_users_table(conn):
     table_query = """
             CREATE TABLE IF NOT EXISTS "users" (
@@ -32,30 +31,36 @@ def create_users_table(conn):
         
         conn.commit()
 
-# TODO Create summaries table to display all summaries of user
-@contextmanager
-def create_summaries_table():
+def create_summaries_table(conn):
     summaries_query = """CREATE TABLE IF NOT EXISTS summaries (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 user_id INTEGER NOT NULL,
                 title TEXT NOT NULL,
                 date TEXT NOT NULL,
                 summary TEXT,
-                FOREIGN KEY (user_id) REFERENCES user(id)
+                FOREIGN KEY (user_id) REFERENCES users(id)
                 )
                 """
     
-    with get_db() as conn:
-        with get_cursor(conn) as cur:
-            cur.execute(summaries_query)
+    with get_cursor(conn) as cur:
+        cur.execute(summaries_query)
 
-        conn.commit()
+    conn.commit()
+
+def get_user_id(conn, user_name):
+    create_users_table(conn)
+
+    with get_cursor(conn) as cur:
+        cur.execute("SELECT id FROM users WHERE username = ?", (user_name,))
+        row = cur.fetchone()
+    return row["id"] if row else None
 
 def retrieve_all_summaries(user):
     """ returns a dict of all summaries """
     
     with get_db() as conn:
-        create_summaries_table()
+        create_summaries_table(conn)
+        create_users_table(conn)
         with get_cursor(conn) as cur:
             cur.execute("""SELECT * FROM users as usr 
                         JOIN summaries as smr 
@@ -63,3 +68,4 @@ def retrieve_all_summaries(user):
             summaries = cur.fetchall()
 
     return summaries
+

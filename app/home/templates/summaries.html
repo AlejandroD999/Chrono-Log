@@ -27,9 +27,9 @@
     </section>
 
     <section class="new_summary_section">
-        <form class='new_summary_form' action="/new-summary" methods="POST">
+        <form class='new_summary_form' action="/new-summary" method=post>
             <div class="summary_header">
-                <input required autofocus id="summary_title" name="summary_title" placeholder="Title" type="text">
+                <input required autofocus autocomplete="off"id="summary_title" name="summary_title" placeholder="Title" type="text">
                 <input required id="new_date" name="summary_date" type="date">
                 <button type="submit">Submit</button>
             </div>
@@ -41,8 +41,8 @@
     </section>
 
 <script>
-        document.querySelector(".new_summary_form").addEventListener('submit', ()=> {
-        document.getElementBy("summary_doc_input").value =
+        document.querySelector(".new_summary_form").addEventListener('submit', (e)=> {
+        document.getElementById("summary_doc_input").value =
         document.querySelector('.summary_doc').innerHTML;
     });
 </script>

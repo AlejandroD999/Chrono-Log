@@ -1,9 +1,10 @@
-from flask import Blueprint, render_template, redirect, url_for, flash, session, request
+from flask import Blueprint, session, render_template, redirect, url_for, request
 from app.auth.utils import is_logged_in
-from app.database.utils import retrieve_all_summaries
+from app.database.utils import get_db, get_cursor, get_user_id, retrieve_all_summaries, create_summaries_table
 
 
 home_bp = Blueprint('home', __name__, static_folder= 'static', template_folder='templates')
+
 
 @home_bp.route("/")
 def home():
@@ -14,7 +15,7 @@ def home():
 
 @home_bp.route("/summaries")
 def summaries():
-    user = session.get('username')
+    user = session.get("username")
     if is_logged_in():
         return render_template("summaries.html", summaries=retrieve_all_summaries(user))
     else:
@@ -22,12 +23,24 @@ def summaries():
 
 @home_bp.route("/new-summary", methods=["GET", "POST"])
 def new_summary():
-    title = request.form.get("summary_title")
-    date = request.form.get("summary_date")
-    summary = request.form.get("summary_doc")
+    if not is_logged_in():
+        return redirect(url_for("auth.login"))
+    
+    if request.method == "POST":
+        user = session["username"]
+        title = request.form.get("summary_title")
+        date = request.form.get("summary_date")
+        summary = request.form.get("summary_doc")
 
-    if not title or not date or not summary:
-        pass
+        with get_db() as conn:
+            user_id = get_user_id(conn, user)
+
+            create_summaries_table(conn)
+            with get_cursor(conn) as cur:
+                cur.execute("""INSERT INTO summaries (user_id, title, date, summary) VALUES (?, ?, ?, ?)""",
+                            (user_id, title, date, summary))
+
+            conn.commit()
 
     return redirect(url_for("home.summaries"))    
 
