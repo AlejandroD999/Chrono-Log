@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, session
+from flask import Blueprint, render_template, redirect, url_for, flash, session, request
 from app.auth.utils import is_logged_in
 from app.database.utils import retrieve_all_summaries
 
@@ -20,9 +20,18 @@ def summaries():
     else:
         return redirect(url_for("auth.login"))
 
-@home_bp.route("/new-summary")
+@home_bp.route("/new-summary", methods=["GET", "POST"])
 def new_summary():
-    return render_template("new_summary.html")
+    title = request.form.get("summary_title")
+    date = request.form.get("summary_date")
+    summary = request.form.get("summary_doc")
+
+    if not title or not date or not summary:
+        pass
+
+    return redirect(url_for("home.summaries"))    
+
+
 
 @home_bp.route("/about")
 def about():

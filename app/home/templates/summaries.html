@@ -12,7 +12,7 @@
         <nav class="summaries_navbar">        
             <ul>
                 {% for summary in summaries %}
-                    <li><a data-summary="{{ summary['summary'] }}" onclick="showSummary(this.dataset.summary)">{{ summary['summary'] }}</a> </li>
+                    <li><a data-summary="{{ summary['summary'] }}" onclick="showSummary(this.dataset.summary)">{{ summary['title'] }} | {{ summary['date'] }}</a> </li>
 
                 {% endfor %}
 
@@ -27,19 +27,25 @@
     </section>
 
     <section class="new_summary_section">
-        <form class='new_summary_form' action="/new-summary", methods=POST>
+        <form class='new_summary_form' action="/new-summary" methods="POST">
             <div class="summary_header">
                 <input required autofocus id="summary_title" name="summary_title" placeholder="Title" type="text">
                 <input required id="new_date" name="summary_date" type="date">
                 <button type="submit">Submit</button>
             </div>
-            <div class="summary_doc" contenteditable="true" placeholder="Enter your text..."></div>
 
-
+            <div class="summary_doc"  contenteditable="true" placeholder="Enter your text..."></div>
+            <input type="hidden" name="summary_doc" id="summary_doc_input">
 
         </form>
     </section>
 
+<script>
+        document.querySelector(".new_summary_form").addEventListener('submit', ()=> {
+        document.getElementBy("summary_doc_input").value =
+        document.querySelector('.summary_doc').innerHTML;
+    });
+</script>
 
 </div>
 
@@ -62,6 +68,8 @@
             content_section.style.display = 'none';
             form_section.style.display = 'block';
         }
-            </script>
+
+
+</script>
 
 {% endblock %}
