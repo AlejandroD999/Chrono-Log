@@ -44,6 +44,22 @@ def new_summary():
 
     return redirect(url_for("home.summaries"))    
 
+@home_bp.route("/del-summary", methods=["POST"])
+def del_summary():
+    if not is_logged_in():
+        return redirect(url_for("auth.login"))
+    
+    summary_id = request.form.get("summary_id")
+
+    with get_db() as conn:
+        create_summaries_table(conn)
+
+        with get_cursor(conn) as cur:
+            cur.execute("DELETE FROM summaries WHERE id = ?", (summary_id,))
+
+        conn.commit()
+
+    return redirect(url_for("home.summaries"))
 
 
 @home_bp.route("/about")

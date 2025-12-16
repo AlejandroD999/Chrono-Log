@@ -12,7 +12,15 @@
         <nav class="summaries_navbar">        
             <ul>
                 {% for summary in summaries %}
-                    <li><a data-summary="{{ summary['summary'] }}" onclick="showSummary(this.dataset.summary)">{{ summary['title'] }} | {{ summary['date'] }}</a> </li>
+                    <li><a data-summary="{{ summary['summary'] }}"
+                        onclick="showSummary(this.dataset.summary)">{{ summary['title'] }} | {{ summary['date'] }}</a>
+                    
+                    <form class="button_form" action="/del-summary" method="POST">
+                        <input type="hidden" name="summary_id" value="{{ summary['id']}}">
+                        <button type="submit">X</button>
+                    </form>
+
+                    </li>
 
                 {% endfor %}
 

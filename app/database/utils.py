@@ -62,7 +62,7 @@ def retrieve_all_summaries(user):
         create_summaries_table(conn)
         create_users_table(conn)
         with get_cursor(conn) as cur:
-            cur.execute("""SELECT * FROM users as usr 
+            cur.execute("""SELECT smr.id, smr.user_id, usr.username, smr.title, smr.date, smr.summary FROM users as usr 
                         JOIN summaries as smr 
                         ON usr.id = smr.user_id WHERE usr.username = ?""", (user,))
             summaries = cur.fetchall()
