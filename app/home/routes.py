@@ -20,6 +20,10 @@ def summaries():
     else:
         return redirect(url_for("auth.login"))
 
+@home_bp.route("/new-summary")
+def new_summary():
+    return render_template("new_summary.html")
+
 @home_bp.route("/about")
 def about():
     if is_logged_in():

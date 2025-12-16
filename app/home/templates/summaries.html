@@ -5,24 +5,18 @@
     <aside id="content_sidebar">
         <navbar class="sidebar_options">
             <ul>
-                <li><a href="">New</a></li>
+                <li><a onclick="showNewSummaryForm()">New</a></li>
                 <li><a href="">Del</a></li>
             </ul>
         </navbar>
         <nav class="summaries_navbar">        
             <ul>
                 {% for summary in summaries %}
-                    <li><a data-summary="{{ summary['summary'] }}" onclick="open_summary(this.dataset.summary)">{{ summary['summary'] }}</a> </li>
+                    <li><a data-summary="{{ summary['summary'] }}" onclick="showSummary(this.dataset.summary)">{{ summary['summary'] }}</a> </li>
 
                 {% endfor %}
 
-                <script>
-                    function open_summary(content) {
-                        const section = document.querySelector("#content_section");
-                        section.textContent = content;
-                        section.style.display = 'block';
-                    }
-                </script>
+
 
             </ul>
         </nav>
@@ -32,9 +26,42 @@
         <p></p>
     </section>
 
+    <section class="new_summary_section">
+        <form class='new_summary_form' action="/new-summary", methods=POST>
+            <div class="summary_header">
+                <input required autofocus id="summary_title" name="summary_title" placeholder="Title" type="text">
+                <input required id="new_date" name="summary_date" type="date">
+                <button type="submit">Submit</button>
+            </div>
+            <div class="summary_doc" contenteditable="true" placeholder="Enter your text..."></div>
+
+
+
+        </form>
+    </section>
+
 
 </div>
 
+    <script>
+        function showSummary(text) {
+            const content_section = document.querySelector("#content_section");
+            const form_section = document.querySelector(".new_summary_section")
+            
+            form_section.style.display = 'none';
+            content_section.style.display = 'block';
+    
+            content_section.textContent = text;
+            }        
+            
+        function showNewSummaryForm()
+        {
+            const content_section = document.querySelector("#content_section");
+            const form_section = document.querySelector(".new_summary_section");
 
+            content_section.style.display = 'none';
+            form_section.style.display = 'block';
+        }
+            </script>
 
 {% endblock %}

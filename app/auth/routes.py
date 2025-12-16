@@ -77,8 +77,5 @@ def login():
     
 @auth.route("/logout")
 def logout():
-    if is_logged_in():
-        session.pop(session['username'], None)
-        
-        return redirect(url_for("auth.login"))
+    session.clear()
     return redirect(url_for("auth.login"))
