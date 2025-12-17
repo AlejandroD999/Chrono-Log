@@ -68,4 +68,3 @@ def retrieve_all_summaries(user):
             summaries = cur.fetchall()
 
     return summaries
-

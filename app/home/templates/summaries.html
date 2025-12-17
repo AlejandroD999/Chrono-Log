@@ -6,14 +6,17 @@
         <navbar class="sidebar_options">
             <ul>
                 <li><a onclick="showNewSummaryForm()">New</a></li>
-                <li><a href="">Del</a></li>
             </ul>
         </navbar>
         <nav class="summaries_navbar">        
             <ul>
                 {% for summary in summaries %}
-                    <li><a data-summary="{{ summary['summary'] }}"
-                        onclick="showSummary(this.dataset.summary)">{{ summary['title'] }} | {{ summary['date'] }}</a>
+                    <li>
+                        <a  data-id="{{ summary['id'] }}"data-title="{{ summary['title'] }}" data-date="{{ summary['date'] }}"
+                                data-summary="{{ summary['summary'] }}"
+                            onclick="showSummary(this.dataset.id, this.dataset.title, this.dataset.date, this.dataset.summary)">
+                                {{ summary['title'] }} | {{ summary['date'] }}
+                        </a>
                     
                     <form class="button_form" action="/del-summary" method="POST">
                         <input type="hidden" name="summary_id" value="{{ summary['id']}}">
@@ -31,13 +34,23 @@
     </aside>
 
     <section id="content_section">
-        <p></p>
+        <form class="content_section_form" action="/update-summary" method=post>
+            
+            <input type="text" autofocus autocomplete="off" class="content_section_title" name="content_section_title">
+            <input type="date" name="content_section_date" class="content_section_date">
+            <button type="submit">Save</button>
+
+            <div class="content_section_doc" contenteditable="true"></div>
+            <input type="hidden" id="content_summary_id" name="content_summary_id">
+            <input type="hidden" id="content_section_input" name="content_section_input">
+
+        </form>
     </section>
 
     <section class="new_summary_section">
         <form class='new_summary_form' action="/new-summary" method=post>
             <div class="summary_header">
-                <input required autofocus autocomplete="off"id="summary_title" name="summary_title" placeholder="Title" type="text">
+                <input required autofocus autocomplete="off" id="summary_title" name="summary_title" placeholder="Title" type="text">
                 <input required id="new_date" name="summary_date" type="date">
                 <button type="submit">Submit</button>
             </div>
@@ -51,21 +64,33 @@
 <script>
         document.querySelector(".new_summary_form").addEventListener('submit', (e)=> {
         document.getElementById("summary_doc_input").value =
-        document.querySelector('.summary_doc').innerHTML;
+        document.querySelector('.summary_doc').textContent;
     });
+
+        document.querySelector(".content_section_form").addEventListener('submit', (e) => {
+            document.getElementById("content_section_input").value =
+            document.querySelector('.content_section_doc').textContent;
+        });
 </script>
 
 </div>
 
     <script>
-        function showSummary(text) {
+        function showSummary(id, title, date, text) {
             const content_section = document.querySelector("#content_section");
-            const form_section = document.querySelector(".new_summary_section")
+            const content_summary_id = document.getElementById("content_summary_id");
+            const content_section_title = document.querySelector(".content_section_title");
+            const content_section_date = document.querySelector(".content_section_date");
+            const content_section_doc = document.querySelector(".content_section_doc");
+            const form_section = document.querySelector(".new_summary_section");
             
             form_section.style.display = 'none';
             content_section.style.display = 'block';
     
-            content_section.textContent = text;
+            content_summary_id.value = id;
+            content_section_title.value = title;
+            content_section_date.value = date;
+            content_section_doc.textContent = text;
             }        
             
         function showNewSummaryForm()

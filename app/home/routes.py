@@ -61,6 +61,26 @@ def del_summary():
 
     return redirect(url_for("home.summaries"))
 
+@home_bp.route("/update-summary", methods=["POST"])
+def update_summary():
+    if not is_logged_in():
+        return redirect(url_for("auth.login"))
+    
+    summary_id = request.form.get("content_summary_id")
+    new_title = request.form.get("content_section_title")
+    new_date = request.form.get("content_section_date")
+    new_summary = request.form.get("content_section_input")
+
+
+    with get_db() as conn:
+        create_summaries_table(conn)
+        with get_cursor(conn) as cur:
+            cur.execute("""UPDATE summaries SET (title, date, summary) = (?, ?, ?)
+                        WHERE id = ?""", (new_title, new_date, new_summary, summary_id))
+            
+        conn.commit()
+
+    return redirect(url_for("home.summaries"))
 
 @home_bp.route("/about")
 def about():
