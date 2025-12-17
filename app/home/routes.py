@@ -66,17 +66,20 @@ def update_summary():
     if not is_logged_in():
         return redirect(url_for("auth.login"))
     
-    summary_id = request.form.get("content_summary_id")
-    new_title = request.form.get("content_section_title")
-    new_date = request.form.get("content_section_date")
-    new_summary = request.form.get("content_section_input")
+    summary_id = request.form.get("section_summary_id")
+    new_title = request.form.get("section_title")
+    new_date = request.form.get("section_date")
+    new_summary = request.form.get("section_input")
 
+    if not summary_id:
+        return redirect(url_for('home.summaries'))
 
     with get_db() as conn:
         create_summaries_table(conn)
         with get_cursor(conn) as cur:
-            cur.execute("""UPDATE summaries SET (title, date, summary) = (?, ?, ?)
-                        WHERE id = ?""", (new_title, new_date, new_summary, summary_id))
+            user_id = get_user_id(conn, session['username'])
+            cur.execute("""UPDATE summaries SET title = ?, date = ?, summary = ? WHERE id = ? AND user_id = ?""",
+                         (new_title, new_date, new_summary, summary_id, user_id))
             
         conn.commit()
 

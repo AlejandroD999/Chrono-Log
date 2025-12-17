@@ -34,15 +34,15 @@
     </aside>
 
     <section id="content_section">
-        <form class="content_section_form" action="/update-summary" method=post>
+        <form class="section_form" action="/update-summary" method=post>
             
-            <input type="text" autofocus autocomplete="off" class="content_section_title" name="content_section_title">
-            <input type="date" name="content_section_date" class="content_section_date">
+            <input type="text" autofocus autocomplete="off" class="section_title" name="section_title">
+            <input type="date" name="section_date" class="section_date">
             <button type="submit">Save</button>
 
-            <div class="content_section_doc" contenteditable="true"></div>
-            <input type="hidden" id="content_summary_id" name="content_summary_id">
-            <input type="hidden" id="content_section_input" name="content_section_input">
+            <div class="section_doc" contenteditable="true"></div>
+            <input type="hidden" id="section_summary_id" name="section_summary_id">
+            <input type="hidden" id="section_input" name="section_input">
 
         </form>
     </section>
@@ -62,40 +62,61 @@
     </section>
 
 <script>
-        document.querySelector(".new_summary_form").addEventListener('submit', (e)=> {
-        document.getElementById("summary_doc_input").value =
-        document.querySelector('.summary_doc').textContent;
-    });
+        const new_summary_form = document.querySelector(".new_summary_form");
+        const section_form = document.querySelector(".section_form");
 
-        document.querySelector(".content_section_form").addEventListener('submit', (e) => {
-            document.getElementById("content_section_input").value =
-            document.querySelector('.content_section_doc').textContent;
-        });
+        if (new_summary_form) {
+            new_summary_form.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const source = document.querySelector(".summary_doc");
+                const target = document.getElementById("summary_doc_input");
+
+                if (!target || !source) return;
+
+                target.value = source.textContent;
+                new_summary_form.submit();
+            })
+        }
+
+        if (section_form) {
+            section_form.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const source = document.querySelector('.section_doc');
+                const target = document.getElementById('section_input');
+
+                if (!source || !target) return;
+                
+                target.value = source.textContent;
+                section_form.submit();
+            })
+        }
 </script>
 
 </div>
 
     <script>
         function showSummary(id, title, date, text) {
-            const content_section = document.querySelector("#content_section");
-            const content_summary_id = document.getElementById("content_summary_id");
-            const content_section_title = document.querySelector(".content_section_title");
-            const content_section_date = document.querySelector(".content_section_date");
-            const content_section_doc = document.querySelector(".content_section_doc");
+            const content_section = document.getElementById("content_section");
+            const section_summary_id = document.getElementById("section_summary_id");
+            const section_title = document.querySelector(".section_title");
+            const section_date = document.querySelector(".section_date");
+            const section_doc = document.querySelector(".section_doc");
             const form_section = document.querySelector(".new_summary_section");
             
             form_section.style.display = 'none';
             content_section.style.display = 'block';
     
-            content_summary_id.value = id;
-            content_section_title.value = title;
-            content_section_date.value = date;
-            content_section_doc.textContent = text;
+            section_summary_id.value = id;
+            section_title.value = title;
+            section_date.value = date;
+            section_doc.textContent = text;
             }        
             
         function showNewSummaryForm()
         {
-            const content_section = document.querySelector("#content_section");
+            const content_section = document.getElementById("content_section");
             const form_section = document.querySelector(".new_summary_section");
 
             content_section.style.display = 'none';
