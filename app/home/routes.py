@@ -1,7 +1,7 @@
-from flask import Blueprint, session, render_template, redirect, url_for, request
+from flask import abort, Blueprint, session, render_template, redirect, url_for, request
 from app.auth.utils import is_logged_in
 from app.database.utils import get_db, get_cursor, get_user_id, retrieve_all_summaries, create_summaries_table
-
+from datetime import date as date_md
 
 home_bp = Blueprint('home', __name__, static_folder= 'static', template_folder='templates')
 
@@ -31,6 +31,11 @@ def new_summary():
         title = request.form.get("summary_title")
         date = request.form.get("summary_date")
         summary = request.form.get("summary_doc")
+
+        if not title:
+            title = "untitled_summary"
+        if not date:
+            date = date_md.today()
 
         with get_db() as conn:
             user_id = get_user_id(conn, user)
