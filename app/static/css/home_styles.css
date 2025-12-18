@@ -17,6 +17,50 @@ body
     background-size: cover;
 }
 
+
+h1
+{   text-align: center;}
+.navbar ul 
+{
+    font-size: 1.10em;
+    overflow: hidden;
+    list-style-type: none;
+    background-color: #2F3E56;
+    opacity: 0.75;
+    padding: 0px;
+    margin: 0px;
+    position: relative;
+    border-bottom: 1px solid rgba(194, 178, 128, 0.35);
+}
+.navbar a
+{   
+    color: var(--text-primary);
+    text-decoration: none;
+    padding: 15px;
+    display: block;
+    text-align: center;
+
+}
+.navbar a:hover
+{
+    background-color: #C2B280;
+
+
+}
+.navbar h1
+{
+    padding-top: 7px;
+    padding-left: 10px;
+    margin: 0;
+    float: left;
+
+}
+.navbar li
+{
+    float: right;
+}
+
+
 .home_div
 {
     align-self: center;
@@ -34,6 +78,28 @@ body
     margin-bottom: 5px;
 }
 
+.error_div {
+    background-color: var(--bg-secondary);
+    width: 35%;
+    height: 300px;
+    margin-top: 20px;
+    display: flex;
+    align-self: center;
+    flex-direction: column;
+    align-content: center;
+    
+}
+.error_div h1, h3 {
+    color: var(--text-primary);
+    align-self: center;
+}
+
+.error_div button {
+    float: right;
+    width: 25%;
+    height: 35px;
+    margin: 10px;
+}
 
 .container_layout
 {
@@ -173,46 +239,4 @@ body
     align-self: center;
     overflow: hidden;
     outline: none;
-}
-
-h1
-{   text-align: center;}
-.navbar ul 
-{
-    font-size: 1.10em;
-    overflow: hidden;
-    list-style-type: none;
-    background-color: #2F3E56;
-    opacity: 0.75;
-    padding: 0px;
-    margin: 0px;
-    position: relative;
-    border-bottom: 1px solid rgba(194, 178, 128, 0.35);
-}
-.navbar a
-{   
-    color: var(--text-primary);
-    text-decoration: none;
-    padding: 15px;
-    display: block;
-    text-align: center;
-
-}
-.navbar a:hover
-{
-    background-color: #C2B280;
-
-
-}
-.navbar h1
-{
-    padding-top: 7px;
-    padding-left: 10px;
-    margin: 0;
-    float: left;
-
-}
-.navbar li
-{
-    float: right;
 }

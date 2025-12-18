@@ -1,0 +1,17 @@
+{% extends 'home_layout.html' %}
+
+{% block body %}
+<div class="error_div">
+    <h1>{{ error_title }}</h1>
+    <h3>{{ error_message }}</h3>
+    <h3>salisalislasilasilasliascadcndckdmckdmckmdkcmdkmckdmcm
+        cmdkcmkdmckdmckdmckmdkcmdkcmkdmckdmckmdkmckmdkcmkdmckc
+        cmdkcmkdmckdmckdmckmdkcmdkcmkdmckdmckmdkmckmdkcmkdmckc
+        cmdkcmkdmckdmckdmckmdkcmdkcmkdmckdmckmdkmckmdkcmkdmckc
+    </h3>
+
+    <form action="{{ url_for('home.summaries') }}" method="get">
+        <button type="submit">Return</button>
+    </form>
+</div>
+{% endblock %}

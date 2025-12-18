@@ -8,44 +8,48 @@ home_bp = Blueprint('home', __name__, static_folder= 'static', template_folder='
 
 @home_bp.route("/")
 def home():
-    if is_logged_in():
-        return render_template("home.html")
-    else:
+    if not is_logged_in():
         return redirect(url_for('auth.login'))
+    return render_template("home.html")
+
 
 @home_bp.route("/summaries")
 def summaries():
     user = session.get("username")
-    if is_logged_in():
-        return render_template("summaries.html", summaries=retrieve_all_summaries(user))
-    else:
+    if not is_logged_in():
         return redirect(url_for("auth.login"))
 
-@home_bp.route("/new-summary", methods=["GET", "POST"])
+    return render_template("summaries.html", summaries=retrieve_all_summaries(user))
+
+@home_bp.route("/new-summary", methods=["POST"])
 def new_summary():
     if not is_logged_in():
         return redirect(url_for("auth.login"))
     
-    if request.method == "POST":
-        user = session["username"]
-        title = request.form.get("summary_title")
-        date = request.form.get("summary_date")
-        summary = request.form.get("summary_doc")
+    user = session["username"]
+    title = request.form.get("summary_title")
+    date = request.form.get("summary_date")
+    summary = request.form.get("summary_doc")
 
-        if not title:
-            title = "untitled_summary"
-        if not date:
-            date = date_md.today()
+    if not title:
+        title = "untitled_summary"
+    if not date:
+        date = date_md.today()
 
-        with get_db() as conn:
-            user_id = get_user_id(conn, user)
+    with get_db() as conn:
+        user_id = get_user_id(conn, user)
+        user_id = None
 
-            create_summaries_table(conn)
-            with get_cursor(conn) as cur:
-                cur.execute("""INSERT INTO summaries (user_id, title, date, summary) VALUES (?, ?, ?, ?)""",
-                            (user_id, title, date, summary))
+        if not user_id:
+            return render_template('error.html', error_title='Creation Failed', error_message='Creation of summary was unsuccessful')
 
-            conn.commit()
+
+        create_summaries_table(conn)
+        with get_cursor(conn) as cur:
+            cur.execute("""INSERT INTO summaries (user_id, title, date, summary) VALUES (?, ?, ?, ?)""",
+                        (user_id, title, date, summary))
+
+        conn.commit()
 
     return redirect(url_for("home.summaries"))    
 
