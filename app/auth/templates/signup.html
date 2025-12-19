@@ -2,15 +2,18 @@
 
 
 {% block content %}
-    <div class="index_div">
-        <form action="/signup" method="post">
-            <h1 class="auth_headers">Sign Up</h1>
 
-            <input required class="auth_fields" autocomplete="off" autofocus name="username" placeholder="Username" type="text">
-            <br>
-            <input required class="auth_fields" autcomplete="off" autofocus name="password" placeholder="Password" type="password">
-            <p class="auth_transition">Already have an account? <a href="{{ url_for('auth.login')}}">Log in</a></p>
-            <button class="auth_buttons" type="submit">Continue</button>
+    <div class="auth-card">
+        <form action="/signup" method="post">
+            <h1 class="auth-title">Sign Up</h1>
+            <div class="form-section">
+                <input required class="auth_fields" autocomplete="off" autofocus name="username" placeholder="Username" type="text">
+                <input required class="auth_fields" autcomplete="off" autofocus name="password" placeholder="Password" type="password">
+                <button class="auth_buttons" type="submit">Continue</button>
+                <p class="auth_transition">Already have an account? <a href="{{ url_for('auth.login')}}">Log in</a></p>
+
+            </div>
+
 
         </form>
     </div>

@@ -36,7 +36,10 @@ body
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(25, 27, 41);
+    background-color: var(--bg-page);
+    background-image: url('/static/images/auth_background.jpg');
+    background-size: cover;
+    background-position: center;
 }
 
 .flash_box
@@ -60,57 +63,66 @@ body
 
 }
 
-.index_div
+.auth-card
 {
     width: 33%;
     height: 65%;
     position: relative;
     display: flex;
     justify-content: center;
-
-    opacity: 0.85;
+    box-shadow: 0 3px 5px 5px var(--bg-surface-alt);
     border-radius: 4px;
-    background-color: #e7e7e7;
+    background-color: var(--bg-page);
 
 }
 
 form
 {
     width: 100%;
-    height: auto;
     display: flex;
     align-items: center;
-
     flex-direction: column;
     margin: 5px;
 }
 
-
-.auth_headers
+.auth-title
 {
+    color: var(--text-primary);
     font-size: 2.25em;
     font-style: bold;
     text-align: center;
     margin: 0;
-    margin-top: 19px;
-    margin-bottom: 51px;
+    margin-top: 15px;
+    margin-bottom: 50px;
     
 }  
 
+.form-section
+{
+    display: flex;
+    width: 75%;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+
 .auth_fields
 {
-    width: 65%;
-    height: 45px;
-    margin-top: 9px;
+    background-color: var(--bg-surface);
+    color: var(--text-primary);
+    width: 100%;
+    height: 50px;
+    padding-left: 5px;
     font-size: 1.20em;
 
 }
 
 .auth_transition
 {
+    color: var(--text-primary);
     margin: 0;
-    margin-top: 6px;
-    margin-right: 90px;
+    align-self: left;
 }
 
 .auth_buttons
@@ -119,14 +131,16 @@ form
     white-space: nowrap;
     text-overflow: ellipsis;
 
-    width: 25%;
-    height: 40px;
+    width: 100%;
+    height: 45px;
     font-size: 1.25em;
-    background-color: rgb(64, 137, 206);
-    color: rgb(255, 227, 227);
-
+    background-color: var(--accent-primary);
+    color: var(--text-primary);
+    align-self: flex-end;
+    justify-self: flex-end;
     font-size: 1em;
-    position: absolute;
-    bottom: 3%;
-    right: 15px;
+}
+.auth_buttons:hover
+{
+    background-color: var(--accent-hover);
 }
