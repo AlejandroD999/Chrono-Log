@@ -1,4 +1,4 @@
-from flask import abort, Blueprint, session, render_template, redirect, url_for, request
+from flask import Blueprint, session, render_template, redirect, url_for, request
 from app.auth.utils import is_logged_in
 from app.database.utils import get_db, get_cursor, get_user_id, retrieve_all_summaries, create_summaries_table
 from datetime import date as date_md
@@ -15,7 +15,11 @@ def home():
 
 @home_bp.route("/summaries")
 def summaries():
-    user = session.get("username")
+    user = session.get('username')
+
+    if not user:
+        return error()
+
     if not is_logged_in():
         return redirect(url_for("auth.login"))
 
@@ -30,6 +34,9 @@ def new_summary():
     title = request.form.get("summary_title") 
     date = request.form.get("summary_date")
     summary = request.form.get("summary_doc")
+
+    if not user:
+        return error()
 
     if not title:
         title = "untitled_summary"
@@ -74,6 +81,7 @@ def del_summary():
 
 @home_bp.route("/update-summary", methods=["POST"])
 def update_summary():
+    """ Backend for updating a summary"""
     if not is_logged_in():
         return redirect(url_for("auth.login"))
     
@@ -103,7 +111,6 @@ def update_summary():
 
 @home_bp.route("/about")
 def about():
-    if is_logged_in():
-        return render_template("about.html")
-    else:
+    if not is_logged_in():
         return redirect(url_for("auth.login"))
+    return render_template("about.html")
