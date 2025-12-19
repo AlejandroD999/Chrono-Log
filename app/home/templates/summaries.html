@@ -5,7 +5,9 @@
     <aside id="content_sidebar">
         <navbar class="sidebar_options">
             <ul>
-                <li><a onclick="showNewSummaryForm()">New</a></li>
+                <li><a onclick="showNewSummaryForm()">
+                    <img src="/static/images/new_icon.png" alt="new">
+                </a></li>
             </ul>
         </navbar>
         <nav class="summaries_navbar">        
@@ -17,10 +19,12 @@
                             onclick="showSummary(this.dataset.id, this.dataset.title, this.dataset.date, this.dataset.summary)">
                                 {{ summary['title'] }} | {{ summary['date'] }}
                         </a>
-                    
-                    <form class="button_form" action="/del-summary" method="POST">
+            
+                    <form class="button-form" action="/del-summary" method="POST">
                         <input type="hidden" name="summary_id" value="{{ summary['id']}}">
-                        <button type="submit">X</button>
+                        <button class= "delete-button" type="submit">
+                            <img src="/static/images/delete_icon.png" alt="X">
+                        </button>
                     </form>
 
                     </li>

@@ -22,7 +22,7 @@ h1
 {   text-align: center;}
 .navbar ul 
 {
-    font-size: 1.10em;
+    font-size: 1.30em;
     overflow: hidden;
     list-style-type: none;
     background-color: #2F3E56;
@@ -36,17 +36,17 @@ h1
 {   
     color: var(--text-primary);
     text-decoration: none;
-    padding: 15px;
+    padding: 17px;
     display: block;
     text-align: center;
 
 }
+
 .navbar a:hover
 {
-    background-color: #C2B280;
-
-
+    background-color: var(--accent);
 }
+
 .navbar h1
 {
     padding-top: 7px;
@@ -148,8 +148,7 @@ h1
 
 .sidebar_options li:hover
 {
-    padding-top: 5px;
-    padding-right: 5px;
+    margin: 1px;
 }
 
 .sidebar_options a
@@ -163,6 +162,8 @@ h1
 .sidebar_options a:hover
 {
     cursor: pointer;
+    filter: brightness(200%);
+    transition: filter 0.3s ease;
 }
 
 .summaries_navbar ul
@@ -171,6 +172,13 @@ h1
     list-style-type: none;
     margin-left: 10px;
     padding: 0;
+}
+.summaries_navbar li
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
 }
 .summaries_navbar li:hover
 {
@@ -183,6 +191,22 @@ h1
     cursor: pointer;
 }
 
+.button-form
+{
+    margin: 0;
+}
+
+.delete-button 
+{
+    background: none;
+    border: 0;
+    cursor: pointer;
+}
+
+.delete-button img:hover
+{
+    background-color: var(--accent);
+}
 
 #content_section
 {

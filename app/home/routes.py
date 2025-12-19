@@ -15,13 +15,14 @@ def home():
 
 @home_bp.route("/summaries")
 def summaries():
+
+    if not is_logged_in():
+        return redirect(url_for("auth.login"))
+
     user = session.get('username')
 
     if not user:
         return error()
-
-    if not is_logged_in():
-        return redirect(url_for("auth.login"))
 
     return render_template("summaries.html", summaries=retrieve_all_summaries(user))
 
