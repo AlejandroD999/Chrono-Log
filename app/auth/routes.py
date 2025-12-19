@@ -10,21 +10,21 @@ auth = Blueprint('auth', __name__, template_folder='templates', static_folder='s
 def signup():
     """ Get username and password then insert into database """
 
-    # TODO Add username, and password limitations
+    if is_logged_in():
+        return redirect(url_for("home.home"))
 
     if request.method == "POST":
         
         name = request.form.get("username").strip()
-        # Hash password  
         password = request.form.get("password").strip()
-
-        if not check_valid_password(password):
-            flash("Password must include 6 or more characters")
-            return redirect(url_for("auth.signup"))
         
         if not name or not password:
             flash("Input must be valid")
             return redirect(url_for('auth.signup'))
+        
+        if not check_valid_password(password):
+            flash("Password must include 6 characters or more and one uppercase letter ")
+            return redirect(url_for("auth.signup"))
 
         hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
         
@@ -46,13 +46,15 @@ def signup():
 
 @auth.route("/login", methods=["GET", "POST"])
 def login():
+    if is_logged_in():
+        return redirect(url_for("home.home"))
 
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
 
         with get_db() as conn: 
-            # Get users When username, and password match
+            # Get users info through username match
             create_users_table(conn)
 
             with get_cursor(conn) as cur:
@@ -71,9 +73,7 @@ def login():
         session.permanent = True
 
         return redirect(url_for("home.home"))
-
-    else:
-        return render_template("login.html")
+    return render_template("login.html")
     
 @auth.route("/logout")
 def logout():
