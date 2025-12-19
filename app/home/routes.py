@@ -2,7 +2,7 @@ from flask import abort, Blueprint, session, render_template, redirect, url_for,
 from app.auth.utils import is_logged_in
 from app.database.utils import get_db, get_cursor, get_user_id, retrieve_all_summaries, create_summaries_table
 from datetime import date as date_md
-
+from .utils import error
 home_bp = Blueprint('home', __name__, static_folder= 'static', template_folder='templates')
 
 
@@ -27,21 +27,21 @@ def new_summary():
         return redirect(url_for("auth.login"))
     
     user = session["username"]
-    title = request.form.get("summary_title")
+    title = request.form.get("summary_title") 
     date = request.form.get("summary_date")
     summary = request.form.get("summary_doc")
 
     if not title:
         title = "untitled_summary"
+
     if not date:
         date = date_md.today()
 
     with get_db() as conn:
         user_id = get_user_id(conn, user)
-        user_id = None
 
         if not user_id:
-            return render_template('error.html', error_title='Creation Failed', error_message='Creation of summary was unsuccessful')
+            return error(title='Creation Failed', message='Creation of summary was unsuccessful')
 
 
         create_summaries_table(conn)
@@ -60,6 +60,8 @@ def del_summary():
     
     summary_id = request.form.get("summary_id")
 
+    if not summary_id:
+        return error()
     with get_db() as conn:
         create_summaries_table(conn)
 
@@ -79,6 +81,11 @@ def update_summary():
     new_title = request.form.get("section_title")
     new_date = request.form.get("section_date")
     new_summary = request.form.get("section_input")
+
+    if not new_title:
+        new_title = 'untitled_summary'
+    if not new_date:
+        new_date = date_md.today()
 
     if not summary_id:
         return redirect(url_for('home.summaries'))
