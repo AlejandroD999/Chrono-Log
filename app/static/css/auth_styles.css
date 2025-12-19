@@ -1,3 +1,32 @@
+:root {
+  /* Core backgrounds */
+  --bg-page: #0f1220;        /* Deep night blue (main page background) */
+  --bg-surface: #1b1f36;     /* Card / panel background */
+  --bg-surface-alt: #262b4a; /* Subtle elevation / secondary panels */
+
+  /* Borders & dividers */
+  --border-subtle: #323760;
+  --border-strong: #3f4580;
+
+  /* Text */
+  --text-primary: #e6e8f2;   /* Primary text on dark backgrounds */
+  --text-secondary: #b3b7d6; /* Labels, helper text */
+  --text-muted: #8a8fb3;     /* Placeholders, disabled */
+
+  /* Accents */
+  --accent-primary: #6f78d8; /* Buttons, links, focus */
+  --accent-hover: #8189f0;
+  --accent-soft: #3a3f6e;    /* Subtle highlights, selection bg */
+
+  /* States */
+  --success: #5fb3a2;
+  --warning: #d6b26f;
+  --error: #d86f7a;
+
+  /* Shadows */
+  --shadow-elevated: 0 12px 30px rgba(10, 12, 30, 0.6);
+}
+
 body
 {
     width: 100vw;
