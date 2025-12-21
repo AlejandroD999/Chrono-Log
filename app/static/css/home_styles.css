@@ -218,6 +218,10 @@ h1
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 
+.section_doc {
+    height: 80vh;
+    overflow-y: auto;
+}
 
 .new_summary_section
 {

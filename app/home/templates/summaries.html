@@ -78,7 +78,7 @@
 
                 if (!target || !source) return;
 
-                target.value = source.textContent;
+                target.innerHTML = sanitize(source.innerHTML);
                 new_summary_form.submit();
             })
         }
@@ -92,10 +92,21 @@
 
                 if (!source || !target) return;
                 
-                target.value = source.textContent;
+                target.value = sanitize(source.innerHTML);
                 section_form.submit();
             })
         }
+        function sanitize(html)
+            {
+                const template = document.createElement("template");
+
+                template.innerHTML = html;
+
+                template.content.querySelectorAll("script").forEach(el => el.remove());
+
+                return template.innerHTML;
+            };
+
 </script>
 
 </div>
@@ -115,7 +126,7 @@
             section_summary_id.value = id;
             section_title.value = title;
             section_date.value = date;
-            section_doc.textContent = text;
+            section_doc.innerHTML = text;
             }        
             
         function showNewSummaryForm()
@@ -125,6 +136,8 @@
 
             content_section.style.display = 'none';
             form_section.style.display = 'block';
+        
+
         }
 
 
