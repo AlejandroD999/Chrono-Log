@@ -78,7 +78,7 @@
 
                 if (!target || !source) return;
 
-                target.innerHTML = sanitize(source.innerHTML);
+                target.value = sanitize(source.innerHTML);
                 new_summary_form.submit();
             })
         }
@@ -121,7 +121,7 @@
             const form_section = document.querySelector(".new_summary_section");
             
             form_section.style.display = 'none';
-            content_section.style.display = 'block';
+            content_section.style.display = 'flex';
     
             section_summary_id.value = id;
             section_title.value = title;
@@ -135,7 +135,7 @@
             const form_section = document.querySelector(".new_summary_section");
 
             content_section.style.display = 'none';
-            form_section.style.display = 'block';
+            form_section.style.display = 'flex';
         
 
         }
