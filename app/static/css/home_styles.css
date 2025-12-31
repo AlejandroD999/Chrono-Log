@@ -235,6 +235,49 @@ h1
     background-color: var(--accent);
 }
 
+.confirm-delete {
+    width: 30%;
+    height: 165px;
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    box-shadow: var(--shadow-soft);
+
+    display: None;
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+
+}
+.confirm-delete div {
+    width: 100%;
+}
+.confirm-delete h3, p {
+    margin: 0;
+    text-align: center;
+}
+.confirm-delete button {
+    background-color: var(--accent);
+    float: right;
+    margin-right: 3%;
+    width: 25%;
+    height: 30px;
+    border: 1px solid var(--border-soft);
+
+}
+#confirm-delete-button:hover {
+    background-color: var(--warning);
+    border: 1px solid var(--error);
+}
+#cancel-delete-button:hover {
+    background-color: var(--accent-active);
+}
+
 #content_section
 {
     flex: 2;

@@ -20,24 +20,41 @@
                                 {{ summary['title'] }} | {{ summary['date'] }}
                         </a>
             
-                    <form class="button-form" action="/del-summary" method="POST">
+                    <div class="button-form">
+                        
                         <input type="hidden" name="summary_id" value="{{ summary['id']}}">
-                        <button class= "delete-button" type="submit">
-                            <img src="/static/images/delete_icon.png" alt="X">
+                        <button 
+                            data-title="{{summary['title']}}" class="delete-button" 
+                            data-id="{{ summary['id'] }}"
+                            onclick="prompt_delete(this.dataset.title, this.dataset.id)">
+                             <img src="/static/images/delete_icon.png" alt="X">
                         </button>
-                    </form>
-
-                    </li>
-
-                {% endfor %}
-
-
-
+                    </div>
+                </li>
+            {% endfor %}
             </ul>
         </nav>
     </aside>
 
+    <div class="confirm-delete">
+        <h3>Are you sure you want to delete the summary?</h3>
+        <p id="title_placeholder"></p>
+        
+        <div>
+            <form action="/del-summary" method="post">
+                <input type="hidden" id="delete_summary_id" name="summary_id">
+                <button id="confirm-delete-button" type="submit">Confirm</button>
+            </form>
+
+            <button id="cancel-delete-button" 
+                onclick="close_delete()">Cancel</button>
+        </div>
+    </div>
+
     <section id="content_section">
+
+
+
         <form class="section_form" action="/update-summary" method=post>
             
             <input required type="text" autofocus autocomplete="off" class="section_title" name="section_title">
@@ -66,6 +83,17 @@
     </section>
 
 <script>
+
+        function prompt_delete(title, id) {
+            document.querySelector(".confirm-delete").style.display = 'flex';
+            document.getElementById("delete_summary_id").value = id;
+            document.getElementById("title_placeholder").innerHTML = title;
+            }
+    
+        function close_delete() {
+            document.querySelector(".confirm-delete").style.display = 'none';
+        }
+
         const new_summary_form = document.querySelector(".new_summary_form");
         const section_form = document.querySelector(".section_form");
 
@@ -118,24 +146,38 @@
             const section_title = document.querySelector(".section_title");
             const section_date = document.querySelector(".section_date");
             const section_doc = document.querySelector(".section_doc");
-            const form_section = document.querySelector(".new_summary_section");
+            const new_summary_section = document.querySelector(".new_summary_section");
             
-            form_section.style.display = 'none';
-            content_section.style.display = 'flex';
-    
-            section_summary_id.value = id;
-            section_title.value = title;
-            section_date.value = date;
-            section_doc.innerHTML = text;
+            if (content_section.style.display === 'none') {
+                new_summary_section.style.display = 'none';
+                content_section.style.display = 'flex';
+        
+                section_summary_id.value = id;
+                section_title.value = title;
+                section_date.value = date;
+                section_doc.innerHTML = text;
+            }
+            else {
+                content_section.style.display = 'none';
+            }
+
             }        
             
         function showNewSummaryForm()
         {
             const content_section = document.getElementById("content_section");
-            const form_section = document.querySelector(".new_summary_section");
+            const new_summary_section = document.querySelector(".new_summary_section");
 
-            content_section.style.display = 'none';
-            form_section.style.display = 'flex';
+            if (new_summary_section.style.display === "none") {
+                content_section.style.display = 'none';
+                new_summary_section.style.display = 'flex';
+            }
+
+            else {
+                new_summary_section.style.display = 'none';                
+            }
+
+
         
 
         }
