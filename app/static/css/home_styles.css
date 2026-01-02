@@ -335,7 +335,8 @@ h1
 
 .new_summary_section
 {
-    background-color: var(--bg-secondary);
+    flex: 2;
+    background-color: var(--bg-primary);
     width: 70%;
     height: 90vh;
     display: None;
@@ -354,20 +355,42 @@ h1
 {
 
     width: 95%;
-    margin: 10px;
-
+    margin: 0;
     border-radius: 3px;
     box-shadow: 0 1px 3px rgba(60,64,67,.3);
-    align-self: center;
     display: flex;
+    gap: 5px;
+    align-self: center;
+
 }
+.summary_header input {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-size:0.9rem;
+    padding-left: 5px;
+    height: 20px;
+}
+
+.summary_header button {    
+    background-color: var(--accent);
+    font-size: 0.9rem;
+    width: 7%;
+    height: 25px;
+    border: 1px solid var(--border-soft);
+}
+
+.summary_header button:hover {
+    background-color: var(--accent-hover);
+
+}
+
 
 .summary_doc
 {
-    background: var(--bg-primary);
+    background: var(--bg-secondary);
     color: var(--text-primary);
     width: 90%;
-    height: 70vh;
+    height: 80vh;
     padding: 10px 20px;
     font-family: "Arial", sans-serif;
     font-size: 16px;
