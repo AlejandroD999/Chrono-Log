@@ -36,15 +36,18 @@ def new_summary():
     date = request.form.get("summary_date")
     summary = request.form.get("summary_doc")
 
+
     if not user:
         return error()
 
+    # Define default values for title and summary if not exists
     if not title:
         title = "untitled_summary"
 
     if not date:
         date = date_md.today()
 
+    # Create new summary
     with get_db() as conn:
         user_id = get_user_id(conn, user)
 
@@ -82,7 +85,7 @@ def del_summary():
 
 @home_bp.route("/update-summary", methods=["POST"])
 def update_summary():
-    """ Backend for updating a summary"""
+    
     if not is_logged_in():
         return redirect(url_for("auth.login"))
     

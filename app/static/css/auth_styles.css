@@ -42,32 +42,41 @@ body
     background-position: center;
 }
 
+
+
 .flash_box
 {
-    /* Change style into readable and small */
-    width: 45%;
-    height: 15%;
+    background-color: var(--bg-surface-alt);
+    color: var(--text-muted);
+
+    border: 1px solid var(--border-strong);
+    border-left: 2px solid var(--accent-primary);
+
+
+    text-align: left;
+    width: 30%;
+    height: fit-content;
+    font-size: 0.7rem;
+    padding: 20px;
+    padding-left: 10px;
+    padding-right: 0;
+    position: fixed;
+    top: 2%;
+    left: 5px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    position: absolute;
-    top: 0;
-    left: center;
-    margin-top: 10px;
-
-    border-radius: 8px;
-    background-color: grey;
-    opacity: 0.87;
-
 }
 
 .auth-card
 {
-    width: 33%;
-    height: 65%;
-    position: relative;
+    width: 100%;
+    max-width: 420px;
+    min-width: 200px;
+    padding: 20px;
+
     display: flex;
     justify-content: center;
     box-shadow: 0 3px 5px 5px var(--bg-surface-alt);
@@ -88,33 +97,42 @@ form
 .auth-title
 {
     color: var(--text-primary);
+    text-overflow: ellipsis;
     font-size: 2.25em;
-    font-style: bold;
+
     text-align: center;
     margin: 0;
-    margin-top: 15px;
-    margin-bottom: 50px;
+    margin-top: 10px;
+    margin-bottom: 35px;
     
 }  
 
 .form-section
 {
+    width: clamp(260px, 80%, 360px);
+
+    gap: 12px;
+
     display: flex;
-    width: 75%;
     flex-direction: column;
-    justify-content: space-between;
-    gap: 5px;
 }
 
 
 .auth_fields
 {
+    width: 100%;
+    padding: 10px 12px;
+
+    font-size: 1rem;
+    line-height: 1.4;
+
     background-color: var(--bg-surface);
     color: var(--text-primary);
-    width: 100%;
-    height: 50px;
-    padding-left: 5px;
-    font-size: 1.20em;
+
+    border: 1px solid var(--border-subtle);
+    border-radius: 4px;
+
+
 
 }
 
@@ -127,20 +145,30 @@ form
 
 .auth_buttons
 {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-
     width: 100%;
-    height: 45px;
-    font-size: 1.25em;
+    height: 44px;
+
+    font-size: 1rem;
+
+    border: none;
+    border-radius: 4px;
+
     background-color: var(--accent-primary);
     color: var(--text-primary);
-    align-self: flex-end;
-    justify-self: flex-end;
-    font-size: 1em;
+    cursor: pointer
 }
 .auth_buttons:hover
 {
     background-color: var(--accent-hover);
+}
+
+@media (max-width:400px) {
+    body {
+        align-items: flex-start;
+        padding-top: 40px;
+    }
+    .auth_title {
+        font-size: 1.75em;
+        margin-bottom: 32px;
+    }
 }

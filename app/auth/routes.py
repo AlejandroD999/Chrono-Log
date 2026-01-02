@@ -23,7 +23,7 @@ def signup():
             return redirect(url_for('auth.signup'))
         
         if not check_valid_password(password):
-            flash("Password must include 6 characters or more and one uppercase letter ")
+            flash("Password must include 6 or more characters and one uppercase letter ")
             return redirect(url_for("auth.signup"))
 
         hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
