@@ -2,15 +2,14 @@
 <html lang="en">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Chrono Lite</title>
+        <title>ChronoLog</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/home_styles.css') }}">
 </head>
         <header>
         <nav class="navbar">
             <ul>
                 <h1>ChronoLog</h1>
-                <li><a href="{{ url_for('auth.logout') }}"><img src="/static/images/logout_icon.png" alt="Logut"></a></li>
-                <li><a href="{{ url_for('home.about') }}">About</a></li>
+                <li><a href="{{ url_for('auth.logout') }}"><img src="/static/images/logout_icon.png" alt="Logout"></a></li>
                 
                 <li><a href="{{ url_for('home.summaries')}}">Summaries</a></li>
                 <li><a href="{{ url_for('home.home')}}">Home</a></li>
