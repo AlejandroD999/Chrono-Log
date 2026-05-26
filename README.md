@@ -3,4 +3,28 @@
   This project uses a web application interface consisting of authentication pages in addition to a home and summaries page upon successfully authenticating.
   Through the summaries page, users are able to perform CRUD operations. 
 
-# Setup
+# Installation
+
+### Clone repository
+```
+git clone https://github.com/AlejandroD999/Chrono-Log.git
+```
+
+### Optional: Create virtual environment
+```
+virtualenv [name]
+```
+
+### Install dependencies
+```
+pip install -r requirements.txt
+```
+
+### Run application
+```
+python run.py
+```
+### Type the host/URL in browser
+```
+http://127.0.0.1:5000/
+```
